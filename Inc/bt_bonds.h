@@ -16,9 +16,12 @@ extern volatile uint8_t BT_Bonds_Full;
 void BT_Bonds_Init(void);
 uint8_t BT_Bonds_Find(const uint8_t bd_addr_hci[6], uint8_t key_out[16]);
 void BT_Bonds_Remember(const uint8_t bd_addr_hci[6], const uint8_t key[16], uint8_t key_type);
-/* Call from cooperative main loop. Writes pending entries only when ACL disconnected. */
+/* BLOCKING explicit maintenance only. Prefer BT_Library_SaveBonds.
+ * Writes at most one pending entry when ACL/pairing/HCI state allows it.
+ * Do not call from normal timing-critical polling or any interrupt/callback. */
 void BT_Bonds_Process(void);
-/* Explicit factory-reset operation: erases ALL remembered bonds. */
+/* BLOCKING explicit factory reset: erases ALL remembered bonds.
+ * Schedule a maintenance window; never invoke automatically on reconnect. */
 uint8_t BT_Bonds_ClearAll(void);
 
 #endif

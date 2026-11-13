@@ -25,7 +25,7 @@ $taskStream = [IO.File]::Open($taskPack, [IO.FileMode]::Create)
 $taskArchive = [IO.Compression.ZipArchive]::new($taskStream, [IO.Compression.ZipArchiveMode]::Create)
 try {
     [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($taskArchive, $taskPdsc, 'MatinKarimi.STM32Bluetooth.pdsc') | Out-Null
-    foreach ($taskDirectory in @('Inc','Src','Ports','Templates','Examples','Documentation')) {
+    foreach ($taskDirectory in @('Inc','Src','Ports','Templates','Examples','Documentation','CubeMX')) {
         Get-ChildItem -LiteralPath (Join-Path $taskRoot $taskDirectory) -File -Recurse | ForEach-Object {
             $taskRelative = $_.FullName.Substring($taskRoot.Length + 1).Replace('\','/')
             [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($taskArchive, $_.FullName, $taskRelative) | Out-Null

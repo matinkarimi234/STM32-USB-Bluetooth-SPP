@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" DBVersion="V4.0" IPType="Thirdparty" IpGroup="Additional Software" Name="MatinKarimi.STM32Bluetooth" Version="0.2.0">
+  <RefMode Abstract="true" Name="USBJjClassicSPP">
+    <ConfigForMode>USBJjClassicSPP</ConfigForMode>
+    <Parameter Name="USBJjClassicSPP" />
+    <Parameter Added="true" Name="BT_DEVICE_NAME" />
+    <Parameter Added="true" Name="BT_SPP_RFCOMM_CHANNEL" />
+    <Parameter Added="true" Name="BT_BONDS_MAX_DEVICES" />
+    <Parameter Added="true" Name="BT_PAIRING_TEST_MODE" />
+    <Parameter Added="true" Name="BT_BONDS_FLASH_START" />
+  </RefMode>
+  <RefMode Abstract="true" Name="USBJjF746Flash">
+    <ConfigForMode>USBJjF746Flash</ConfigForMode>
+    <Parameter Name="USBJjF746Flash" />
+  </RefMode>
+  <ModeLogicOperator Name="OR">
+    <Mode Name="USBJjClassicSPP">
+      <ModeLogicOperator Name="OR">
+        <Mode Name="USBJjClassicSPP">
+          <SignalLogicalOp Name="AND">
+            <Signal Name="VS_USBJjClassicSPP_0.2.0" />
+          </SignalLogicalOp>
+        </Mode>
+      </ModeLogicOperator>
+    </Mode>
+    <Mode Name="USBJjF746Flash">
+      <ModeLogicOperator Name="OR">
+        <Mode Name="USBJjF746Flash">
+          <SignalLogicalOp Name="AND">
+            <Signal Name="VS_USBJjF746Flash_0.2.0" />
+          </SignalLogicalOp>
+        </Mode>
+      </ModeLogicOperator>
+    </Mode>
+  </ModeLogicOperator>
+  <RefSignal Name="VS_USBJjClassicSPP_0.2.0" Virtual="true" />
+  <RefParameter Comment="ClassicSPP" DefaultValue="false" Group="Software component selection" Name="USBJjClassicSPP" TabName="USBJjClassicSPP" Type="boolean" Visible="false">
+    <PossibleValue Comment="ENABLE" Semaphore="SEMUSBJjClassicSPP" Value="true" />
+    <PossibleValue Comment="DISABLE" Value="false" />
+  </RefParameter>
+  <RefSignal Name="VS_USBJjF746Flash_0.2.0" Virtual="true" />
+  <RefParameter Comment="F746Flash" DefaultValue="false" Group="Software component selection" Name="USBJjF746Flash" TabName="USBJjF746Flash" Type="boolean" Visible="false">
+    <PossibleValue Comment="ENABLE" Semaphore="SEMUSBJjF746Flash" Value="true" />
+    <PossibleValue Comment="DISABLE" Value="false" />
+  </RefParameter>
+  <RefParameter Added="true" Comment="Device and SDP service name" DefaultValue="STM32 Bluetooth SPP" Group="SPP settings" Name="BT_DEVICE_NAME" TabName="Parameter Settings" Type="stringRW">
+    <Description>1 to 64 bytes; used for HCI and the SDP service. Rebuild and rediscover after changes.</Description>
+  </RefParameter>
+  <RefParameter Added="true" Comment="RFCOMM server channel" DefaultValue="1" Group="SPP settings" Name="BT_SPP_RFCOMM_CHANNEL" TabName="Parameter Settings" Type="integer" Min="1" Max="30" />
+  <RefParameter Added="true" Comment="Maximum saved devices" DefaultValue="16" Group="SPP settings" Name="BT_BONDS_MAX_DEVICES" TabName="Parameter Settings" Type="integer" Min="1" Max="16" />
+  <RefParameter Added="true" Comment="Development Just Works pairing" DefaultValue="0U" Group="SPP settings" Name="BT_PAIRING_TEST_MODE" TabName="Parameter Settings" Type="list">
+    <PossibleValue Value="0U" Comment="Disabled (default)" />
+    <PossibleValue Value="1U" Comment="Enabled for controlled development" />
+  </RefParameter>
+  <RefParameter Added="true" Comment="Reserved bond flash address" DefaultValue="0x080C0000UL" Group="Bond storage" Name="BT_BONDS_FLASH_START" TabName="Parameter Settings" Type="list">
+    <Description>Choose a COMPLETE erase sector reserved outside the firmware image. This setting does not change the linker or migrate bonds. Sectors 6 and 7 require 1MB flash. SaveBonds is explicit maintenance, not normal polling.</Description>
+    <PossibleValue Value="0x08000000UL" Comment="Sector 0 at 0x08000000" />
+    <PossibleValue Value="0x08008000UL" Comment="Sector 1 at 0x08008000" />
+    <PossibleValue Value="0x08010000UL" Comment="Sector 2 at 0x08010000" />
+    <PossibleValue Value="0x08018000UL" Comment="Sector 3 at 0x08018000" />
+    <PossibleValue Value="0x08020000UL" Comment="Sector 4 at 0x08020000" />
+    <PossibleValue Value="0x08040000UL" Comment="Sector 5 at 0x08040000" />
+    <PossibleValue Value="0x08080000UL" Comment="Sector 6 at 0x08080000" />
+    <PossibleValue Value="0x080C0000UL" Comment="Sector 7 at 0x080C0000" />
+  </RefParameter>
+</IP>

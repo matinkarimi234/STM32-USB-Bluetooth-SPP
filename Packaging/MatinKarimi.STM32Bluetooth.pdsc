@@ -1,26 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package schemaVersion="1.7.7" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.7.7" xsi:noNamespaceSchemaLocation="PACK.xsd">
   <vendor>MatinKarimi</vendor>
   <name>STM32Bluetooth</name>
   <description>Bluetooth Classic SPP USB Host source library for STM32F746</description>
   <url>https://github.com/matinkarimi234/STM32-USB-Bluetooth-SPP/releases/download/pack/</url>
   <license>LICENSE</license>
   <releases>
+    <release version="0.2.0" date="2026-11-13">Preview: configurable F746 bond sector in CubeMX, nonblocking polling with explicit persistence, and timer/callback integration tutorial.</release>
     <release version="0.1.0" date="2026-11-13">Initial community source component; manual application integration. Hardware-tested on STM32F746G-DISCO with the reported CSR-compatible adapter.</release>
   </releases>
+  <keywords>
+    <keyword>IMPLEMENTED_WITH_STM32CUBEMX</keyword>
+  </keywords>
   <conditions>
     <condition id="STM32F746">
       <description>STM32F746 consuming project supplies ST USB Host and HAL</description>
       <require Dname="STM32F746*" />
     </condition>
-    <condition id="STM32F746NGHx">
-      <description>Initial port is qualified with STM32F746NGHx and sector 7 reserved</description>
-      <require Dname="STM32F746NGHx" />
-    </condition>
   </conditions>
   <components>
-    <component Cclass="USB" Cgroup="Bluetooth" Csub="ClassicSPP" Cversion="0.1.0" condition="STM32F746">
-      <description>Classic SPP server; requires a selected storage/timing port and ST USB Host. See README for registration, polling and BT_USE_USER_CONFIG.</description>
+    <component Cclass="USB" Cgroup="ClassicSPP" Cversion="0.2.0" condition="STM32F746">
+      <description>Classic SPP server; configure name, channel, pairing and bond sector in CubeMX. See the Usage Guide for explicit USB registration and main-loop polling.</description>
       <files>
         <file category="include" name="Inc/" />
         <file category="header" name="Inc/bt_acl_diag.h" />
@@ -39,12 +39,13 @@
         <file category="sourceC" name="Src/bt_library.c" />
         <file category="sourceC" name="Src/bt_spp.c" />
         <file category="sourceC" name="Src/usbh_bluetooth.c" />
-        <file category="header" attr="config" name="Templates/bt_user_config.h" version="0.1.0" />
         <file category="doc" name="README.md" />
+        <file category="header" name="Inc/bt_f746_flash_layout.h" />
+        <file category="doc" name="Documentation/USAGE_GUIDE.md" />
       </files>
     </component>
-    <component Cclass="USB" Cgroup="Bluetooth" Csub="F746Sector7Port" Cversion="0.1.0" condition="STM32F746NGHx">
-      <description>1MB STM32F746NGHx HAL storage/timing port. Reserve sector 7 in the linker; never full-chip erase when preserving bonds.</description>
+    <component Cclass="USB" Cgroup="F746Flash" Cversion="0.2.0" condition="STM32F746">
+      <description>F746 flash/tick port: select and reserve a full erase sector. The physical flash-size fuse is checked. Persistence is an explicit blocking maintenance operation.</description>
       <files>
         <file category="sourceC" name="Ports/STM32F746/bt_port_stm32f746.c" />
       </files>

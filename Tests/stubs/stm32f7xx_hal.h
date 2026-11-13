@@ -11,3 +11,6 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t, uint32_t, uint64_t);
 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *, uint32_t *);
 
 uint32_t HAL_GetTick(void);
+
+extern uint16_t BT_Test_FlashSizeKB;
+#define FLASHSIZE_BASE ((uintptr_t)&BT_Test_FlashSizeKB)

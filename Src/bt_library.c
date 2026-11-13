@@ -36,11 +36,17 @@ void BT_Library_Process(void)
 {
     uint8_t open;
     if (registered_host == NULL) { return; }
-    BT_Bonds_Process();
     open = BT_Library_IsSerialOpen();
     if (open != last_serial_open)
     {
         last_serial_open = open;
         if (application.serial_changed != NULL) { application.serial_changed(open, application.context); }
     }
+}
+
+uint8_t BT_Library_SaveBonds(void)
+{
+    if (registered_host == NULL) { return 0U; }
+    BT_Bonds_Process();
+    return (uint8_t)(BT_Bonds_Dirty == 0U);
 }

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" DBVersion="V4.0" Name="STM32Bluetooth" RootFolder="Packs/MatinKarimi/STM32Bluetooth/0.2.0/" Version="0.2.0">
+  <RefConfig Name="USBJjClassicSPP">
+    <Component Name="USB:ClassicSPP:$USBJjClassicSPP" />
+    <ConfigFile Name="BT_USER_CONFIG" />
+  </RefConfig>
+  <RefConfig Name="USBJjF746Flash">
+    <Component Name="USB:F746Flash:$USBJjF746Flash" />
+  </RefConfig>
+  <RefConfigFile Added="true" Name="BT_USER_CONFIG" Template="bt_user_config_h.ftl" Description="Project-owned Bluetooth configuration">
+    <File Category="header" Condition="all" Name="App/bt_user_config.h" />
+    <Argument Added="true" AddressOf="false" Comment="Device and SDP service name" GenericType="simple" Name="BT_DEVICE_NAME" OptimizationCondition="equal" />
+    <Argument Added="true" AddressOf="false" Comment="RFCOMM server channel" GenericType="simple" Name="BT_SPP_RFCOMM_CHANNEL" OptimizationCondition="equal" />
+    <Argument Added="true" AddressOf="false" Comment="Maximum saved devices" GenericType="simple" Name="BT_BONDS_MAX_DEVICES" OptimizationCondition="equal" />
+    <Argument Added="true" AddressOf="false" Comment="Development Just Works pairing" GenericType="simple" Name="BT_PAIRING_TEST_MODE" OptimizationCondition="equal" />
+    <Argument Added="true" AddressOf="false" Comment="Reserved bond flash address" GenericType="simple" Name="BT_BONDS_FLASH_START" OptimizationCondition="equal" />
+  </RefConfigFile>
+  <RefComponent Cclass="USB" Cgroup="ClassicSPP" Cversion="0Gg2Gg0">
+    <File Category="header" Condition="" Name="Inc/bt_acl_diag.h" />
+    <File Category="header" Condition="" Name="Inc/bt_acl_tx.h" />
+    <File Category="header" Condition="" Name="Inc/bt_bonds.h" />
+    <File Category="header" Condition="" Name="Inc/bt_config.h" />
+    <File Category="header" Condition="" Name="Inc/bt_hci_trace.h" />
+    <File Category="header" Condition="" Name="Inc/bt_library.h" />
+    <File Category="header" Condition="" Name="Inc/bt_port.h" />
+    <File Category="header" Condition="" Name="Inc/bt_spp.h" />
+    <File Category="header" Condition="" Name="Inc/usbh_bluetooth.h" />
+    <File Category="source" Condition="" Name="Src/bt_acl_diag.c" />
+    <File Category="source" Condition="" Name="Src/bt_acl_tx.c" />
+    <File Category="source" Condition="" Name="Src/bt_bonds.c" />
+    <File Category="source" Condition="" Name="Src/bt_hci_trace.c" />
+    <File Category="source" Condition="" Name="Src/bt_library.c" />
+    <File Category="source" Condition="" Name="Src/bt_spp.c" />
+    <File Category="source" Condition="" Name="Src/usbh_bluetooth.c" />
+    <File Category="doc" Condition="" Name="README.md" />
+    <File Category="header" Condition="" Name="Inc/bt_f746_flash_layout.h" />
+    <File Category="doc" Condition="" Name="Documentation/USAGE_GUIDE.md" />
+  </RefComponent>
+  <RefComponent Cclass="USB" Cgroup="F746Flash" Cversion="0Gg2Gg0">
+    <File Category="source" Condition="" Name="Ports/STM32F746/bt_port_stm32f746.c" />
+  </RefComponent>
+</IP>
