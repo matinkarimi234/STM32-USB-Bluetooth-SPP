@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+dist/
+*.o
+*.obj
+*.axf
+*.hex
+*.map
+*.uvoptx
+*.uvguix.*
+.local-cache/
