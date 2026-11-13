@@ -385,7 +385,7 @@ static void BT_ResetGenericCommand(void)
     BT_HCI_DebugControlState = 0xFFU;
     BT_HCI_DebugUSBCompleted = 0U;
     BT_DebugOutURB = 0xFFU;
-		
+
 		BT_SSPState = BT_SSP_WAIT_NAME;
 		BT_SSPStatus = 0xFFU;
 		BT_SSPMode = 0xFFU;
@@ -1195,9 +1195,9 @@ static void BT_ProcessAsyncEvent(uint32_t length)
                 BT_InquiryCompleteSeen = 1U;
             }
             break;
-						
-				
-				
+
+
+
 				case BT_HCI_EVT_LINK_KEY_REQUEST:
 				{
 						uint8_t key_matches = BT_PairLinkKeyValid;
@@ -1230,8 +1230,8 @@ static void BT_ProcessAsyncEvent(uint32_t length)
 
 						break;
 				}
-				
-				
+
+
 				case BT_HCI_EVT_IO_CAP_REQUEST:
 				{
 						static const uint8_t io_params[3] = {0x03U, 0x00U, 0x04U};
@@ -1270,8 +1270,8 @@ static void BT_ProcessAsyncEvent(uint32_t length)
 						}
 
 						break;
-						
-						
+
+
 
 				case BT_HCI_EVT_PIN_CODE_REQUEST:
 
@@ -1302,7 +1302,7 @@ static void BT_ProcessAsyncEvent(uint32_t length)
 						}
 
 						break;
-						
+
 
 				case BT_HCI_EVT_SIMPLE_PAIR_COMPLETE:
 
@@ -1316,7 +1316,7 @@ static void BT_ProcessAsyncEvent(uint32_t length)
 						}
 
 						break;
-				
+
 				case BT_HCI_EVT_AUTH_COMPLETE:
 
 						if ((length == 5U) && (BT_EventRxBuffer[1] == 3U))
@@ -1379,9 +1379,9 @@ static void BT_ProcessAsyncEvent(uint32_t length)
 
 								BT_ConnCompleteStatus = BT_EventRxBuffer[2];
 								BT_ConnCompleteSeen = 1U;
-								
+
 								if ((BT_ConnState != BT_CONN_ACCEPT_WAIT) && (BT_ConnState != BT_CONN_WAIT_COMPLETE)) { break; }
-								
+
 								if (BT_ConnCompleteStatus == 0U)
 								{
 										BT_ConnectionHandle = ((uint16_t)BT_EventRxBuffer[3] | ((uint16_t)BT_EventRxBuffer[4] << 8)) & 0x0FFFU;
@@ -1997,8 +1997,8 @@ static USBH_StatusTypeDef BT_Process(USBH_HandleTypeDef *phost)
                 BT_HCI_CmdEventSeen && BT_HCI_DebugUSBCompleted)
             { BT_HCI_CmdState = BT_HCI_CMD_IDLE; }
         }
-				
-		
+
+
     return USBH_OK;
 }
 

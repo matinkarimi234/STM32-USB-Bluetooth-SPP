@@ -4,6 +4,14 @@ $taskPdsc = Join-Path $taskRoot 'Packaging\MatinKarimi.STM32Bluetooth.pdsc'
 [xml]$taskDescription = Get-Content -LiteralPath $taskPdsc -Raw
 $taskVersion = $taskDescription.package.releases.release[0].version
 if (!$taskVersion) { $taskVersion = $taskDescription.package.releases.release.version }
+# Validate against an installed CMSIS schema when available.
+$taskSchemaPath = 'C:\Keil_v5\UV4\PACK.xsd'
+if (Test-Path -LiteralPath $taskSchemaPath) {
+    $taskSchemas = [Xml.Schema.XmlSchemaSet]::new()
+    $null = $taskSchemas.Add('', $taskSchemaPath)
+    $taskDescription.Schemas = $taskSchemas
+    $taskDescription.Validate({ param($sender,$event) throw $event.Message })
+}
 $taskOutput = Join-Path $taskRoot 'dist'
 New-Item -ItemType Directory -Path $taskOutput -Force | Out-Null
 $taskPack = Join-Path $taskOutput ("MatinKarimi.STM32Bluetooth.{0}.pack" -f $taskVersion)
@@ -28,4 +36,10 @@ try {
     }
 } finally { $taskArchive.Dispose(); $taskStream.Dispose() }
 Copy-Item -LiteralPath $taskPdsc -Destination (Join-Path $taskOutput 'MatinKarimi.STM32Bluetooth.pdsc') -Force
-Get-FileHash -LiteralPath $taskPack -Algorithm SHA256
+$taskChecksums = foreach ($taskArtifact in @($taskPack, (Join-Path $taskOutput 'MatinKarimi.STM32Bluetooth.pdsc'))) {
+    $taskHash = Get-FileHash -LiteralPath $taskArtifact -Algorithm SHA256
+    '{0}  {1}' -f $taskHash.Hash.ToLowerInvariant(), [IO.Path]::GetFileName($taskArtifact)
+}
+Set-Content -LiteralPath (Join-Path $taskOutput 'SHA256SUMS') -Value $taskChecksums -Encoding ascii
+Write-Output $taskPack
+Write-Output $taskChecksums

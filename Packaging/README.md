@@ -18,7 +18,11 @@ must satisfy ST's expansion-package requirements and work through its ecosystem/
 partner process before claiming an ST catalog listing. This project is community
 software and does not claim ST approval or automatic catalog inclusion.
 
-Validation status will be recorded after schema and installed-tool checks.
+Validation completed: installed Keil PACK.xsd accepts the PDSC; all declared
+component paths exist; the archive passed a local STM32CubeMX import and MIT
+license flow. CubeMX displays vendor MatinKarimi, STM32Bluetooth version 0.1.0
+with installed status. The public library's six native suites pass. No
+clean-project CubeMX component-generation/build cycle has been performed yet.
 Do not describe basic source-component installation as fully generated CubeMX
 integration. The next milestone is an enhanced package with generated callbacks,
 configurations, correctly ordered USBH_Init/Register/Start calls and regeneration

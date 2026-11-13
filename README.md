@@ -6,9 +6,10 @@ reported working by the project owner, including the extracted library layout.
 
 ## CubeMX status
 
-The first package is a CMSIS source component intended for local/URL installation
-in STM32CubeMX. Automatic CubeMX code generation and ST catalog inclusion are
-separate milestones. This is community-maintained software, not an ST-authored or
+The first package is a CMSIS source component successfully installed locally
+in STM32CubeMX as MatinKarimi / STM32Bluetooth 0.1.0. Automatic CubeMX code generation and ST catalog inclusion are
+separate milestones. A clean generated-project build has not yet been validated.
+This is community-maintained software, not an ST-authored or
 ST-approved driver. See Packaging/README.md for exact package validation status.
 
 ## Integration
@@ -53,3 +54,15 @@ controller HCI/LMP versions, toolchain, phone/OS, reproduction steps, and a trac
 with key material removed. Run the tests and report hardware results for changes.
 Contributions are under MIT; preserve third-party notices. ST HAL/USB middleware
 is a dependency supplied by the consuming STM32Cube project, not included here.
+
+## Install in STM32CubeMX
+
+Download the `.pack` from the repository's **CubeMX source-pack preview** release.
+In CubeMX open Manage software installations, Install/Remove, From Local, and
+select `MatinKarimi.STM32Bluetooth.0.1.0.pack`. Accept the MIT license. The package
+appears under vendor **MatinKarimi**, name **STM32Bluetooth**. Alternatively use
+From URL with the release's `MatinKarimi.STM32Bluetooth.pdsc` download URL.
+
+The exact local-install flow was exercised successfully. URL installation and
+new-project component selection/generation/build are not yet tested. Keep this
+preview distinction when reporting compatibility or distributing the package.
